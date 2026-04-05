@@ -6,30 +6,27 @@ int top = -1;
 
 int isEmpty()
 {
-    return top == -1;
+    return top == -1; // check empty stack
 }
 
 void push(int val)
 {
     if (top == MAX - 1)
     {
-        printf("Stack overflow\n");
+        printf("Stack overflow\n"); // full stack
         return;
     }
-    top++;
-    stack[top] = val;
+    stack[++top] = val;
 }
 
 int pop()
 {
     if (top == -1)
     {
-        printf("Stack underflow\n");
+        printf("Stack underflow\n"); // empty stack
         return -1;
     }
-    int val = stack[top];
-    top--;
-    return val;
+    return stack[top--];
 }
 
 void nextGreater(int a[], int n)
@@ -38,13 +35,15 @@ void nextGreater(int a[], int n)
     int result[MAX];
 
     for (i = 0; i < n; i++)
-        result[i] = -1;
+        result[i] = -1; // default = no greater element
 
     for (i = 0; i < n; i++)
     {
         while (!isEmpty() && stack[top] < a[i])
         {
             int val = pop();
+
+            // find index of popped value
             for (j = 0; j < n; j++)
             {
                 if (a[j] == val && result[j] == -1)
@@ -54,7 +53,7 @@ void nextGreater(int a[], int n)
                 }
             }
         }
-        push(a[i]);
+        push(a[i]); // push current element
     }
 
     for (i = 0; i < n; i++)
