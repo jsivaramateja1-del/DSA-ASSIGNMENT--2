@@ -9,6 +9,7 @@ void enqueue(int val)
 {
     int full;
 
+    // check circular full condition
     if (rear == MAX - 1)
         full = (front == 0);
     else
@@ -21,8 +22,9 @@ void enqueue(int val)
     }
 
     if (front == -1)
-        front = 0;
+        front = 0; // first element
 
+    // circular increment of rear
     if (rear == MAX - 1)
         rear = 0;
     else
@@ -36,21 +38,18 @@ void dequeue()
 {
     if (front == -1)
     {
-        printf("Queue is empty\n");
+        printf("Queue is empty\n"); // empty check
         return;
     }
 
     printf("%d dequeued\n", queue[front]);
 
     if (front == rear)
-    {
-        front = -1;
-        rear = -1;
-    }
+        front = rear = -1; // reset queue
     else if (front == MAX - 1)
         front = 0;
     else
-        front = front + 1;
+        front = front + 1; // circular increment
 }
 
 void peek()
@@ -73,11 +72,15 @@ void display()
 
     printf("Queue elements: ");
     int i = front;
+
     while (1)
     {
         printf("%d ", queue[i]);
+
         if (i == rear)
             break;
+
+        // circular traversal
         if (i == MAX - 1)
             i = 0;
         else
@@ -89,13 +92,10 @@ void display()
 int main()
 {
     int choice, val;
+
     while (1)
     {
-        printf("\n1. Enqueue\n");
-        printf("2. Dequeue\n");
-        printf("3. Peek\n");
-        printf("4. Display\n");
-        printf("5. Exit\n");
+        printf("\n1. Enqueue\n2. Dequeue\n3. Peek\n4. Display\n5. Exit\n");
         printf("Enter choice: ");
         scanf("%d", &choice);
 
@@ -106,17 +106,22 @@ int main()
                 scanf("%d", &val);
                 enqueue(val);
                 break;
+
             case 2:
                 dequeue();
                 break;
+
             case 3:
                 peek();
                 break;
+
             case 4:
                 display();
                 break;
+
             case 5:
                 return 0;
+
             default:
                 printf("Invalid choice\n");
         }
